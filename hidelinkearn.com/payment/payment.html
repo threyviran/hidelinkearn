@@ -1,0 +1,24 @@
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<button id="paystack-button">Pay Now</button>
+<script>
+    document.getElementById('paystack-button').addEventListener('click', function() {
+      var handler = PaystackPop.setup({
+        key: 'pk_test_713ef2abaabffec535b41c6be658530d74e8c64f', // Replace with your Paystack public key
+        email: 'customer@example.com',
+        amount: 10000, // Amount in kobo (e.g., 10000 kobo = 100 NGN)
+        currency: 'RWF', // Currency code
+        ref: '' + Math.floor((Math.random() * 1000000000) + 1), // Unique reference for the transaction
+        callback: function(response) {
+          // Handle successful payment here
+          alert('Payment successful! Reference: ' + response.reference);
+        },
+        onClose: function() {
+          // Handle when the user closes the payment modal
+          alert('Payment cancelled');
+        }
+      });
+      handler.openIframe();
+    });
+  </script>
+  <script src="node.js"></script>
+  

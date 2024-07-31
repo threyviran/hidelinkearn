@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="register.css">
+    <script type="module" src="firebase-config.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Login</h2>
+            <form id="login-form">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" name="login-email" required>
+
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="login-password" required>
+
+                <button type="submit">Login</button>
+                <p id="login-message"></p>
+                <p>Don't have an account? <a href="register.html">Register here</a></p>
+            </form>
+        </div>
+    </div>
+    <script type="module">
+        import { auth, signInWithEmailAndPassword } from './firebase-config.js';
+
+        document.getElementById('login-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                document.getElementById('login-message').textContent = 'Login successful!';
+                // Optionally redirect after successful login
+                window.location.href = 'index.html';
+            } catch (error) {
+                document.getElementById('login-message').textContent = error.message;
+            }
+        });
+    </script>
+</body>
+</html>
